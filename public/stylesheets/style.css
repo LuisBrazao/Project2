@@ -1,12 +1,14 @@
 body {
-<<<<<<< HEAD
   padding: 0;
-=======
-  padding: 50px;
->>>>>>> 8913fbe77117be26755c3a9a8d14ab927c2db1f7
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
 
 /*# sourceMappingURL=style.css.map */
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{ color: #fff;  }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}	
