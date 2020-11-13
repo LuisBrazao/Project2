@@ -54,5 +54,7 @@ app.locals.title = 'Ganda site dos leilões';
 const index = require('./routes/index');
 app.use('/', index);
 
+const auction = require('./routes/auction');
+app.use('/', auction);
 
 module.exports = app;
