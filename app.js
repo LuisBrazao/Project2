@@ -69,4 +69,10 @@ app.use('/', auction);
 const auth = require('./routes/auth/auth');
 app.use('/', auth);
 
+const painting = require('./routes/painting/painting');
+app.use('/', painting);
+
+const wishlist = require('./routes/wishlist/wishlist');
+app.use('/', wishlist);
+
 module.exports = app;
