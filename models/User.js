@@ -20,14 +20,13 @@ const userSchema = new Schema(
     },
     image_url: {
       type: String,
-      required: [true, "Image is required"]
     },
     money: {
       type: Number,
       default: 100000
 
     },
-    collection: [{
+    owened: [{
       type: Schema.Types.ObjectId,
       ref: "Painting"
     }],

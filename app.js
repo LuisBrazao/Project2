@@ -8,6 +8,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const session      = require("express-session")
 
 
 mongoose
@@ -29,6 +30,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(
+  session({
+    secret: "my secret",
+    cookie: {maxAge: 60000},
+    rolling: true
+  })
+)
 
 // Express View engine setup
 
@@ -56,5 +65,8 @@ app.use('/', index);
 
 const auction = require('./routes/auction');
 app.use('/', auction);
+
+const auth = require('./routes/auth/auth');
+app.use('/', auth);
 
 module.exports = app;
