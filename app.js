@@ -66,8 +66,8 @@ app.use('/', index);
 const auction = require('./routes/auction');
 app.use('/', auction);
 
-const auth = require('./routes/auth/auth');
-app.use('/', auth);
+const user = require('./routes/auth');
+app.use('/', user);
 
 const painting = require('./routes/painting/painting');
 app.use('/', painting);
