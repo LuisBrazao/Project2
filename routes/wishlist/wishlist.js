@@ -10,7 +10,6 @@ router.post('/addWishlist/:id', (req, res, next) => {
   User.findByIdAndUpdate(req.session.currentUser,
     {$push: {wishlist: {paintingID}}}
   ).then((result) => {
-    console.log(req.session.currentUser)
     res.redirect(`/`)
   }).catch((err) => {
     console.log(err)
