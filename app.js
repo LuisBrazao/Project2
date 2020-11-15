@@ -57,4 +57,7 @@ app.use('/', index);
 const auction = require('./routes/auction');
 app.use('/', auction);
 
+const user = require('./routes/auth');
+app.use('/', user);
+
 module.exports = app;

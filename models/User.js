@@ -27,7 +27,7 @@ const userSchema = new Schema(
       default: 100000
 
     },
-    collection: [{
+    userCollection: [{
       type: Schema.Types.ObjectId,
       ref: "Painting"
     }],
