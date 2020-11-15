@@ -20,7 +20,6 @@ const userSchema = new Schema(
     },
     image_url: {
       type: String,
-      required: [true, "Image is required"]
     },
     money: {
       type: Number,
