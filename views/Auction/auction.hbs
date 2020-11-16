@@ -1,1 +1,8 @@
-<h1>Auction</h1>
+<h1>Auctions</h1>
+<div class="row">
+  {{#each}}
+  <div class="col-md-4">
+    <a href="/auction-detail"><img class="img-fluid" src="{{image_url}}" class="card-img-top" alt="{{title}}"></a>
+  </div>
+  {{/each}}
+</div>
