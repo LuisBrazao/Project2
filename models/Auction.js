@@ -3,8 +3,10 @@ const { Schema, model } = mongoose;
 const auctionSchema = new Schema(
   {
     selling: [{
+      paintingID: {
       type: Schema.Types.ObjectId,
       ref: "Painting"
+      }
     }],
     currentBid: {
       type: Schema.Types.ObjectId,

@@ -1,24 +1,19 @@
 <div class="row">
-  {{#each painting}}
-  <div class="col-md-4 mb-5">
+  {{#each paintings}}
+  <div class="col-md-6 mb-5">
     <div class="card" style="width: 18rem;">
       <img src="{{image_url}}" class="card-img-top" alt="{{title}}">
       <div class="card-body">
         <h5 class="card-title">{{title}} - {{paintedIn}}</h5>
         <p class="card-text">Painted by: {{author}}</p>
         <p class="card-text">Cost: {{price}}</p>
-        <form action="/addWishlist/{{_id}}" method="POST">
-          <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+        <p class="card-text">Stock: {{minus total sold}}</p>
+        <form action="/buy/{{_id}}" method="POST">
+          <button type="submit" class="btn btn-primary">Buy painting</button>
         </form>
-        <a href="/showRandom" class="btn btn-secondary">Next Painting</a>
       </div>
     </div>
   </div>
   {{/each}}
-  {{#if errorMessage}}
-  <div class="col-md-8">
-    {{errorMessage}}
-  </div>
-  {{/if}}
   <hr />
 </div>

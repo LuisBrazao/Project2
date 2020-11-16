@@ -1,5 +1,5 @@
 <div class="row">
-  {{#each painting}}
+  {{#each paintings}}
   <div class="col-md-4 mb-5">
     <div class="card" style="width: 18rem;">
       <img src="{{image_url}}" class="card-img-top" alt="{{title}}">
@@ -7,18 +7,9 @@
         <h5 class="card-title">{{title}} - {{paintedIn}}</h5>
         <p class="card-text">Painted by: {{author}}</p>
         <p class="card-text">Cost: {{price}}</p>
-        <form action="/addWishlist/{{_id}}" method="POST">
-          <button type="submit" class="btn btn-primary">Add to Wishlist</button>
-        </form>
-        <a href="/showRandom" class="btn btn-secondary">Next Painting</a>
       </div>
     </div>
   </div>
   {{/each}}
-  {{#if errorMessage}}
-  <div class="col-md-8">
-    {{errorMessage}}
-  </div>
-  {{/if}}
   <hr />
 </div>

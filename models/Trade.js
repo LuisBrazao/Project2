@@ -11,12 +11,16 @@ const tradeSchema = new Schema(
       ref: "User"
     },
     offering: [{
+      paintingID: {
       type: Schema.Types.ObjectId,
       ref: "Painting"
+      }
     }],
     wanting: [{
+      paintingID: {
       type: Schema.Types.ObjectId,
       ref: "Painting"
+      }
     }]
   }
 )

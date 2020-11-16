@@ -16,7 +16,7 @@ const paintingSchema = new Schema(
     price: {
       type: Number
     },
-    year: {
+    paintedIn: {
       type: Number
     },
     total: {
