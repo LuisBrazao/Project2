@@ -26,7 +26,7 @@ const userSchema = new Schema(
       default: 100000
 
     },
-    owened: [{
+    owned: [{
       paintingID: {
       type: Schema.Types.ObjectId,
       ref: "Painting"

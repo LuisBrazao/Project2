@@ -8,11 +8,17 @@
         <p class="card-text">Painted by: {{author}}</p>
         <p class="card-text">Cost: {{price}}</p>
         <form action="/addWishlist/{{_id}}" method="POST">
-        <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+          <button type="submit" class="btn btn-primary">Add to Wishlist</button>
         </form>
+        <a href="/showRandom" class="btn btn-secondary">Next Painting</a>
       </div>
     </div>
   </div>
   {{/each}}
+  {{#if errorMessage}}
+  <div class="col-md-8">
+    {{errorMessage}}
+  </div>
+  {{/if}}
   <hr />
 </div>
