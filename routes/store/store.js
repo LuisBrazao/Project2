@@ -52,9 +52,8 @@ router.get("/store", (req, res) => {
                 });
                 Store.findByIdAndUpdate(result[0]._id, { selling: paintingsId, startTime: currentTime, endTime: endTime })
                   .then((result2) => {
-                    console.log(result2)
                     let storePaintings = [];
-                    result2[0].selling.forEach(element => {
+                    result2.selling.forEach(element => {
                       Painting.findById(element.paintingID)
                         .then((paint) => {
                           storePaintings.push(paint)
