@@ -1,19 +1,15 @@
 <div class="row">
   {{#each paintings}}
-  <div class="col-md-6 mb-5">
+  <div class="col-md-4 mb-5">
     <div class="card" style="width: 18rem;">
       <img src="{{image_url}}" class="card-img-top" alt="{{title}}">
       <div class="card-body">
         <h5 class="card-title">{{title}} - {{paintedIn}}</h5>
         <p class="card-text">Painted by: {{author}}</p>
         <p class="card-text">Cost: {{price}}</p>
-        <p class="card-text">Stock: {{minus total sold}}</p>
-        <form action="/buy/{{_id}}" method="POST">
-          <button type="submit" class="btn btn-primary">Buy painting</button>
-        </form>
       </div>
     </div>
   </div>
   {{/each}}
-  
+  <hr />
 </div>

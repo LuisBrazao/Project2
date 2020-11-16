@@ -27,9 +27,11 @@
       </ul>
     </div>
     {{#if user}}
-    <form action="/logout" method="POST">
-      <li class="nav-item mr-0 my-0"><button type="submit">Logout</button></li>
-    </form>
+    <ul class="navbar-nav mr-0 my-0">
+      <form action="/logout" method="POST">
+        <li class="nav-item mr-0 my-0"><button type="submit">Logout</button></li>
+      </form>
+    </ul>
     {{else}}
     <ul class="navbar-nav mr-0 my-0">
       <li class="nav-item mr-0 my-0"><a class="nav-link" href="/register">Register</a></li>

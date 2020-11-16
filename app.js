@@ -79,4 +79,7 @@ app.use('/', painting);
 const wishlist = require('./routes/wishlist/wishlist');
 app.use('/', wishlist);
 
+const store = require('./routes/store/store');
+app.use('/', store);
+
 module.exports = app;
