@@ -1,20 +1,48 @@
 body {
-  padding: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
 
-  .navbar .nav-item{
-    font: 20px
-  }
-  
-  @media all and (min-width: 992px) {
-    .navbar .nav-item .dropdown-menu{ display: none; }
-    .navbar .nav-item:hover .nav-link{ color: #FFDF00;  }
-    .navbar .nav-item:hover .dropdown-menu{ display: block; }
-    .navbar .nav-item .dropdown-menu{ margin-top:0; }
-  }	
-  
+/*# sourceMappingURL=style.css.map */
 
-  /*# sourceMappingURL=style.css.map */
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{ color: #fff;  }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}	
+
+.random-page{
+  background-color: #111111;
+  height: 100%
+}
+
+.painting-title{
+  color: rgba(255, 255, 255, 0.514)
+}
+
+.logout-btn{
+  color: grey
+}
+
+.index-page{
+  background-color: #111111;
+}
+
+.welcome{
+  font: 400 130px/0.8 'Great Vibes', Helvetica, sans-serif;
+  color: #e8b923;
+  text-shadow: 4px 4px 3px rgba(0,0,0,0.1); 
+}
+
+.login-box{
+  margin-top: 100px;
+  background-color: rgba(77, 75, 75, 0.068);
+}
+
+.login-btn{
+  margin: 2px;
+  padding: 2px;
+  color: #e8b923
+}

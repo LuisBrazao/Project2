@@ -1,4 +1,4 @@
-<h1>{{title}}</h1>
+<body class="index-page">
 {{#if user}}
 <h2>Welcome {{user.username}}</h2>
 <div>
@@ -7,69 +7,19 @@
 <div>
   <p>Current money: {{user.money}}</p>
 </div>
-
 <div>
   <p><a href="/collection">My collection</a></p>
 </div>
-
 <div>
   <p><a href="/wishlist">My wishlist</a></p>
 </div>
-
 <div>
   <p><a href="/trades">Trades</a></p>
 </div>
-
-
-
-
-
-
-<div class="container">
-  <div>
-    <p>Collection:</p>
-    {{#each owened}}
-    <img src={{image_url}}>
-    <p>{{title}}</p>
-    <p>{{author}}</p>
-    <p>{{year}}</p>
-    <p>{{price}}</p>
-    {{/each}}
-  </div>
-
-  <div>
-    {{#each wishlist}}
-    <p>Wishlist:
-      <img src={{image_url}}>
-    <p>{{title}}</p>
-    <p>{{author}}</p>
-    <p>{{year}}</p>
-    <p>{{price}}</p>
-    {{/each}}</p>
-  </div>
-  <div>
-    <p>On sale:
-      {{#each selling}}
-      <img src={{image_url}}>
-    <p>{{title}}</p>
-    <p>{{author}}</p>
-    <p>{{year}}</p>
-    <p>{{price}}</p>
-    {{/each}}</p>
-  </div>
-  <div>
-    <p>Trades:
-      {{#each trades}}
-      <img src={{image_url}}>
-    <p>{{title}}</p>
-    <p>{{author}}</p>
-    <p>{{year}}</p>
-    <p>{{price}}</p>
-
-    {{/each}}</p>
-  </div>
-</div>
 {{else}}
-<a href="/register">Register</a>
-<a href="/login">Login</a>
+<div>
+<h1 class="welcome">Welcome to the greatest auctions website ever created.</h1>
+<p>Please <a href="/register">Register</a></p>
+</div>
 {{/if}}
+</body>
