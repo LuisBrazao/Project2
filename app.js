@@ -9,6 +9,10 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 const session      = require("express-session")
+const helpers      = require('handlebars-helpers');
+
+
+hbs.registerHelper(helpers());
 
 
 mongoose
@@ -66,7 +70,7 @@ app.use('/', index);
 const auction = require('./routes/auction');
 app.use('/', auction);
 
-const auth = require('./routes/auth');
+const auth = require('./routes/auth/auth');
 app.use('/', auth);
 
 const painting = require('./routes/painting/painting');

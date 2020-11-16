@@ -6,11 +6,11 @@ const { Mongoose } = require('mongoose');
 const saltRounds = 10;
 
 router.get("/register", (req, res) => {
-  res.render("auth/register")
+  res.render("Auth/register")
 })
 
 router.get("/login", (req, res) => {
-  res.render("auth/login")
+  res.render("Auth/login")
 })
 
 router.post("/register", (req, res) => {
@@ -18,7 +18,7 @@ router.post("/register", (req, res) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashPassword = bcrypt.hashSync(password, salt);
   if (username === "" || password === "") {
-      res.render("auth/register",
+      res.render("Auth/register",
           {
               errorMessage: "Indicade Username and Password"
           })
@@ -27,7 +27,7 @@ router.post("/register", (req, res) => {
       User.findOne({ "username": username })
           .then((user) => {
               if (user) {
-                  res.render("auth/register",
+                  res.render("Auth/register",
                       {
                           errorMessage: "Username already exits"
                       })
@@ -38,12 +38,12 @@ router.post("/register", (req, res) => {
                       res.redirect("/")
                   }).catch((error) => {
                       if (error.code === 11000) {
-                          res.render("auth/register",
+                          res.render("Auth/register",
                               {
                                   errorMessage: "Username and email need to be unique"
                               })
                       }
-                       res.render("auth/register", 
+                       res.render("Auth/register", 
                       {
                           errorMessage: error
                       }) 
@@ -55,7 +55,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
   if (username === "" || password === "") {
-      res.render("auth/login",
+      res.render("Auth/login",
           {
               errorMessage: "Indicade Username and Password"
           })
@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
   User.findOne({ "username": username })
       .then((user) => {
           if (!user) {
-              res.render("auth/login",
+              res.render("Auth/login",
                   {
                       errorMessage: "Invalid login"
                   })
@@ -74,7 +74,7 @@ router.post("/login", (req, res) => {
               req.session.currentUser = user;
               res.redirect("/")
           }else{
-              res.render("auth/login", 
+              res.render("Auth/login", 
               {
                   errorMessage: "Invalid login"
               })
