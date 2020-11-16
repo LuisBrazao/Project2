@@ -1,18 +1,19 @@
-<div class="row">
+<div class="row random-page">
   {{#each painting}}
-  <div class="col-md-4 mb-5">
-    <div class="card" style="width: 18rem;">
-      <img src="{{image_url}}" class="card-img-top" alt="{{title}}">
-      <div class="card-body">
-        <h5 class="card-title">{{title}} - {{year}}</h5>
-        <p class="card-text">Painted by: {{author}}</p>
-        <p class="card-text">Cost: {{price}}</p>
-        <form action="/addWishlist/{{_id}}" method="POST">
+  <div class="col-md-2 d-flex"></div>
+  <div class="col-md-4 d-flex">
+    <img class="img-fluid" src="{{image_url}}" class="card-img-top" alt="{{title}}">
+  </div>
+  <div class="col-md-5">
+    <div class="card-body d-flex align-items-center flex-column">
+      <h3 class="font-italic painting-title">{{title}}</h3>
+      <p>{{paintedIn}}</p>
+      <p class="card-text">{{author}}</p>
+      <p class="card-text">Cost: {{price}}</p>
+      <form action="/addWishlist/{{_id}}" method="POST">
         <button type="submit" class="btn btn-primary">Add to Wishlist</button>
-        </form>
-      </div>
+      </form>
     </div>
   </div>
   {{/each}}
-  <hr />
 </div>

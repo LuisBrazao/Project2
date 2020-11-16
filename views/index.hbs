@@ -2,51 +2,71 @@
 {{#if user}}
 <h2>Welcome {{user.username}}</h2>
 <div>
-  <img src="{{image_url}}">
+  <img src={{user.image_url}}>
 </div>
 <div>
-  <p>Current money: {{money}}</p>
+  <p>Current money: {{user.money}}</p>
 </div>
+
 <div>
-  <div><p>Collection:</p> 
-  {{#each owened}}
+  <p><a href="/collection">My collection</a></p>
+</div>
+
+<div>
+  <p><a href="/wishlist">My wishlist</a></p>
+</div>
+
+<div>
+  <p><a href="/trades">Trades</a></p>
+</div>
+
+
+
+
+
+
+<div class="container">
+  <div>
+    <p>Collection:</p>
+    {{#each owened}}
     <img src={{image_url}}>
     <p>{{title}}</p>
     <p>{{author}}</p>
     <p>{{year}}</p>
     <p>{{price}}</p>
-  {{/each}}
+    {{/each}}
+  </div>
+
+  <div>
+    {{#each wishlist}}
+    <p>Wishlist:
+      <img src={{image_url}}>
+    <p>{{title}}</p>
+    <p>{{author}}</p>
+    <p>{{year}}</p>
+    <p>{{price}}</p>
+    {{/each}}</p>
   </div>
   <div>
-  {{#each wishlist}}
-  <p>Wishlist: 
-    <img src={{image_url}}>
+    <p>On sale:
+      {{#each selling}}
+      <img src={{image_url}}>
     <p>{{title}}</p>
     <p>{{author}}</p>
     <p>{{year}}</p>
     <p>{{price}}</p>
-  {{/each}}</p>  
+    {{/each}}</p>
   </div>
   <div>
-    <p>On sale:   
-    {{#each selling}}
-    <img src={{image_url}}>
-    <p>{{title}}</p>
-    <p>{{author}}</p>
-    <p>{{year}}</p>
-    <p>{{price}}</p>
-  {{/each}}</p>    
-  </div>
-    <div>
-    <p>Trades:   
-    {{#each trades}}
-    <img src={{image_url}}>
+    <p>Trades:
+      {{#each trades}}
+      <img src={{image_url}}>
     <p>{{title}}</p>
     <p>{{author}}</p>
     <p>{{year}}</p>
     <p>{{price}}</p>
 
-  {{/each}}</p>    
+    {{/each}}</p>
   </div>
 </div>
 {{else}}

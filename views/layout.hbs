@@ -26,12 +26,16 @@
         </li>
       </ul>
     </div>
-    <div class="collapse navbar-collapse mr-0 my-0">
-      <ul class="navbar-nav mr-0 my-0">
-        <li class="nav-item mr-0 my-0"><a class="nav-link" href="/register">Register</a></li>
-        <li class="nav-item mr-0 my-0"><a class="nav-link" href="/login">Login</a></li>
-      </ul>
-    </div>
+    {{#if user}}
+    <form action="/logout" method="POST">
+      <li class="nav-item mr-0 my-0"><button type="submit">Logout</button></li>
+    </form>
+    {{else}}
+    <ul class="navbar-nav mr-0 my-0">
+      <li class="nav-item mr-0 my-0"><a class="nav-link" href="/register">Register</a></li>
+      <li class="nav-item mr-0 my-0"><a class="nav-link" href="/login">Login</a></li>
+    </ul>
+    {{/if}}
   </nav>
   {{{body}}}
 

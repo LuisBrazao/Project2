@@ -14,3 +14,10 @@ a {
 	.navbar .nav-item .dropdown-menu{ margin-top:0; }
 }	
 
+.random-page{
+  background-color: #111111
+}
+
+.painting-title{
+  color: rgba(255, 255, 255, 0.514)
+}
