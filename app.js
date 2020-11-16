@@ -82,4 +82,7 @@ app.use('/', wishlist);
 const store = require('./routes/store/store');
 app.use('/', store);
 
+const owned = require('./routes/owned/owned');
+app.use('/', owned);
+
 module.exports = app;
