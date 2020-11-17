@@ -86,3 +86,5 @@ const owned = require('./routes/owned/owned');
 app.use('/', owned);
 
 module.exports = app;
+
+

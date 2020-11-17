@@ -1,21 +1,47 @@
-<h2> Register</h2>
-<form action="/register" method="POST">
-<label>
-  Username
-  <input type="text" name="username" placeholder="Your username">
-</label>
-<label>
-  Email
-  <input type="email" name="email" placeholder="Your email">
-  </label>
-  <label>
-    Password
-    <input type="password" name="password" placeholder="your password">
-  </label>
-  <button type="submit">
-Create account
-  </button>
-</form>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<body class="index-page">
+
+	<div class="container ">
+		<div class="">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card bg-transparent">
+					<div class="card-body login-box ">
+						<form action="/register" method="POST">
+							<label class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input class="form-control" type="text" name="username" placeholder="username" required>
+							</label>
+              	<label class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+								</div>
+								<input class="form-control" type="email" name="email" placeholder="email" required>
+							</label>
+							<label class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input class="form-control" type="password" name="password" placeholder="password" required>
+							</label>
+							<div class="d-flex justify-content-center">
+								<button class="login-btn border-warning rounded bg-transparent" type="submit">
+									Register
+								</button>
+							</div>
+							<br>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
 {{#if errorMessage}}
     <div>
         {{errorMessage}}

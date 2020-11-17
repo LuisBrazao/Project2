@@ -1,22 +1,23 @@
 const express = require('express');
-const router  = express.Router();
-
+const router = express.Router();
+const Painting = require('../models/Painting')
 function requireLogin(req, res, next) {
-  if(req.session.currentUser) {
+  if (req.session.currentUser) {
     next();
-  }else{
+  } else {
     res.redirect('/login');
   }
 }
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  req.app.locals.loggedUser = req.session.currentUser;
-  res.render('index', { user: req.session.currentUser });
-})
+  Painting.aggregate([{ $sample: { size: 1 } }])
+    .then((painting) => {
+      req.app.locals.loggedUser = req.session.currentUser;
+      res.render('index', { user: req.session.currentUser, painting: painting })
+    })
+    ;
+});
 
-router.get('/', requireLogin, (req, res) => {
-  res.render('index')
-})
 
 module.exports = router;

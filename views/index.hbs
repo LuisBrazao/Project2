@@ -1,25 +1,69 @@
-<body class="index-page">
+{{#each painting}}
+
+<style>
+  body {
+    background-image: url({{image_url}});
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+</style>
+
 {{#if user}}
-<h2>Welcome {{user.username}}</h2>
-<div>
-  <img src={{user.image_url}}>
+<div class="container d-flex">
+  <h2>Welcome {{user.username}}</h2>
+  <div>
+    <img src={{user.image_url}}>
+  </div>
+  <div>
+    <p>Current money: {{user.money}}$</p>
+  </div>
 </div>
-<div>
-  <p>Current money: {{user.money}}</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <p><a href="/collection">My collection</a></p>
+    </div>
+    <div class="col-md-4">
+      <p><a href="/wishlist">My wishlist</a></p>
+    </div>
+    <div class="col-md-4">
+      <p><a href="/trades">Trades</a></p>
+    </div>
+  </div>
 </div>
-<div>
-  <p><a href="/collection">My collection</a></p>
-</div>
-<div>
-  <p><a href="/wishlist">My wishlist</a></p>
-</div>
-<div>
-  <p><a href="/trades">Trades</a></p>
-</div>
+
 {{else}}
-<div>
-<h1 class="welcome">Welcome to the greatest auctions website ever created.</h1>
-<p>Please <a href="/register">Register</a></p>
+<div class="filter">
+  <div class="container">
+    <div class="row p-30">
+      <div class="col-lg-12 ">
+        <div class="welcome-message">
+          <h1 class="welcome">Welcome to the greatest auctions website ever created.</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var vara = new Vara("#container-animation", "https://rawcdn.githack.com/akzhy/Vara/ed6ab92fdf196596266ae76867c415fa659eb348/fonts/Satisfy/SatisfySL.json", [{
+      text: "Hello World!!",
+      fontSize: 48,
+      y: 10
+    }, {
+      text: "Realistic Animations",
+      fontSize: 34,
+      color: "#f44336"
+    }], {
+      strokeWidth: 2,
+      textAlign: "center"
+    });</script>
+  <script src="https://rawcdn.githack.com/akzhy/Vara/16e30acca2872212e28735cfdbaba696a355c780/src/vara.min.js"></script>
+
+<div id="container-animation">
 </div>
+
 {{/if}}
-</body>
+</div>
+{{/each}}
