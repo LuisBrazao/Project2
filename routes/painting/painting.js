@@ -8,7 +8,7 @@ const Painting = require("../../models/Painting");
 router.get('/showRandom', (req, res, next) => {
   Painting.aggregate([{ $sample: { size: 1 } }])
     .then((painting) => {
-      res.render('Painting/random', {painting: painting});
+      res.render('Painting/random', {painting: painting, user: req.session.currentUser});
     })
 });
 
