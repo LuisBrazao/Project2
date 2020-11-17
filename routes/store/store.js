@@ -26,7 +26,7 @@ router.get("/store", (req, res) => {
                         storePaintings.push(paint)
                       })
                   });
-                  res.render("Store/store", { paintings: storePaintings })
+                  res.render("Store/store", { paintings: storePaintings, user: req.session.currentUser })
                 }).catch((err) => {
                   console.log(err)
                 })
@@ -61,7 +61,7 @@ router.get("/store", (req, res) => {
                           console.log(err);
                         })
                     });
-                    res.render("Store/store", { paintings: storePaintings })
+                    res.render("Store/store", { paintings: storePaintings, user: req.session.currentUser })
                   }).catch((err) => {
                     console.log(err)
                   })
@@ -78,7 +78,7 @@ router.get("/store", (req, res) => {
                   console.log(err)
                 })
             });
-            res.render("Store/store", { paintings: storePaintings })
+            res.render("Store/store", { paintings: storePaintings, user: req.session.currentUser })
           }
         }).catch((err) => {
           console.log(err);

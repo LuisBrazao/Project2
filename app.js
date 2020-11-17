@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(
   session({
     secret: "my secret",
-    cookie: {maxAge: 60000},
+    cookie: {maxAge: 60000000},
     rolling: true
   })
 )
@@ -67,7 +67,7 @@ app.locals.title = 'Ganda site dos leilões';
 const index = require('./routes/index');
 app.use('/', index);
 
-const auction = require('./routes/auction');
+const auction = require('./routes/auction/auction');
 app.use('/', auction);
 
 const auth = require('./routes/auth/auth');

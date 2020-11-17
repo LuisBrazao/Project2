@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require("../../models/User");
 const Painting = require("../../models/Painting");
-const requireLogin = require("../../config/utils")
+const requireLogin = require("../../config/utils");
+const Store = require('../../models/Store');
 
 router.get("/owned", requireLogin, (req, res) => {
   let paintings = {
@@ -33,7 +34,6 @@ router.post('/buy/:id', (req, res, next) => {
           let sold = 0;
           Painting.findById(paintingID)
             .then((paint) => {
-              console.log(paint)
               if (paint.canSell && paint.price <= result.money) {
                 let newMoney = result.money - paint.price;
                 if (paint.sold + 1 > paint.total) {
@@ -48,7 +48,7 @@ router.post('/buy/:id', (req, res, next) => {
                 ).then(() => {
                   Painting.findByIdAndUpdate(paintingID, { canSell: canSell, sold: sold })
                     .then(() => {
-                      res.redirect(`/owned`)
+                      res.redirect(`/store`)
                     }).catch((err) => {
                       console.log(err);
                     })
@@ -61,29 +61,58 @@ router.post('/buy/:id', (req, res, next) => {
             })
 
         } else {
-          Painting.findById(paintingID)
-            .then((painting) => {
-              res.render('Painting/random', {
-                painting: [painting],
-                errorMessage: "You already have this painting in your collection"
-              });
+          Store.find()
+            .then((result) => {
+              let currentTime = new Date();
+              if (currentTime > result[0].endTime) {
+                let paintingsId = []
+                let currentTime = new Date();
+                let endTime = new Date();
+                endTime.setMinutes(endTime.getMinutes() + 1)
+                Painting.aggregate([{ $sample: { size: 4 } }])
+                  .then((paintings) => {
+                    paintings.forEach(element => {
+                      paintingsId.push({ paintingID: element._id })
+                    });
+                    Store.findByIdAndUpdate(result[0]._id, { selling: paintingsId, startTime: currentTime, endTime: endTime })
+                      .then((result2) => {
+                        let storePaintings = [];
+                        result2.selling.forEach(element => {
+                          Painting.findById(element.paintingID)
+                            .then((paint) => {
+                              storePaintings.push(paint)
+                            }).catch((err) => {
+                              console.log(err);
+                            })
+                        });
+                        res.render("Store/store", { paintings: storePaintings, errorMessage: "You already own this painting.", user: req.session.currentUser })
+                      }).catch((err) => {
+                        console.log(err)
+                      })
+                  }).catch((err) => {
+                    console.log(err)
+                  })
+              } else {
+                let storePaintings = [];
+                result[0].selling.forEach(element => {
+                  Painting.findById(element.paintingID)
+                    .then((paint) => {
+                      storePaintings.push(paint)
+                    }).catch((err) => {
+                      console.log(err)
+                    })
+                });
+                res.render("Store/store", { paintings: storePaintings, errorMessage: "You already own this painting" , user: req.session.currentUser})
+              }
             }).catch((err) => {
-              console.log(err)
+              console.log(err);
             })
         }
-      }).catch((err) => {
-        console.log(err);
-      })
+      });
   } else {
-    Painting.findById(paintingID)
-      .then((painting) => {
-        res.render('Painting/random', {
-          painting: [painting],
-          errorMessage: "Please login to add paintings to your account"
-        });
-      }).catch((err) => {
-        console.log(err)
-      })
+    res.render('Store/store', {
+      errorMessage: "Please login to add paintings to your account"
+    });
   }
 });
 

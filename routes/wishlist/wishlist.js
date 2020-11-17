@@ -45,7 +45,7 @@ router.post('/addWishlist/:id', (req, res, next) => {
             .then((painting) => {
               res.render('Painting/random', { painting: [painting],
                 errorMessage: "You already have this painting in your wishlist"
-              });
+                , user: req.session.currentUser});
             })
         }
       })

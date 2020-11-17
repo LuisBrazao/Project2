@@ -1,0 +1,17 @@
+<form action="/create-auction" method="POST">
+<label>
+  Selling
+  <select name="paintingID" id="">
+    {{#each owned}}
+      <option value="{{id}}">{{name}}</option>
+    {{/each}}
+  </select>
+</label>
+<label>
+  Start Price
+  <input type="number" name="startPrice">
+  </label>
+  <button type="submit" class="btn btn-warning">
+Create account
+  </button>
+</form>
