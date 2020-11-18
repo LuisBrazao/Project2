@@ -1,15 +1,51 @@
-<div class="row">
-  {{#each paintings}}
-  <div class="col-md-4 mb-5">
-    <div class="card" style="width: 18rem;">
-      <img src="{{image_url}}" class="card-img-top" alt="{{title}}">
-      <div class="card-body">
-        <h5 class="card-title">{{title}} - {{paintedIn}}</h5>
-        <p class="card-text">Painted by: {{author}}</p>
-        <p class="card-text">Cost: {{price}}</p>
+<div class="my-collection">
+    <h3 class="collection-page-title">My collection</h3>
+    <div class="row">
+      {{#each paintings}}
+      <div class="col-md-6">
+        <figure class="figure">
+          <div class="text-center collection-card">
+            <img id="myImg {{title}}" class="myImgClass {{title}}" src="{{image_url}}"
+              style="width: auto; height: 400px" class="figure-img img-fluid" alt="{{title}}">
+            <div id="myModal {{title}}" class="modal {{title}}">
+              <span class="close">&times;</span>
+              <img class="modal-content {{title}}" id="img01 {{title}}">
+              <div id="caption"></div>
+            </div>
+          </div>
+          <figcaption class="figure-caption text-center font-owned">{{title}} - {{paintedIn}}</figcaption>
+          <figcaption class="figure-caption text-center font-owned">{{author}}</figcaption>
+          <figcaption class="figure-caption text-center font-owned-price">Cost: {{price}}$</figcaption>
+          <div class="text-center font-owned">
+            <form action="/sell/{{_id}}" method="POST">
+              <button type="submit" class="btn btn-outline-secondary btn-sell underlined">Sell in auction</button>
+            </form>
+          </div>
       </div>
-    </div>
+      {{/each}}
+
+    <script>
+      var modal = document.getElementsByClassName("modal");
+      var img = document.getElementsByClassName("myImgClass");
+      var modalImg = document.getElementsByClassName("modal-content");
+      var captionText = document.getElementById("caption");
+      let liTagsArray = [...img];
+      var span = document.getElementsByClassName("close");
+
+      span.onclick = function () {
+        modal.style.display = "none";
+      }
+      for (let i = 0; i < liTagsArray.length; i++) {
+        liTagsArray[i].onclick = () => {
+          modal[i].style.display = "block";
+          modalImg[i].src = liTagsArray[i].src;
+          captionText.innerHTML = liTagsArray[i].alt;
+          span[i].onclick = function () {
+            modal[i].style.display = "none";
+          }
+        };
+      }
+    </script>
   </div>
-  {{/each}}
-  <hr />
+
 </div>

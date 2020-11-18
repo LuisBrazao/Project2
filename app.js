@@ -60,7 +60,8 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 // default value for title local
-app.locals.title = 'Ganda site dos leilões';
+app.locals.title = 'Art Auctions';
+
 
 
 
@@ -86,5 +87,4 @@ const owned = require('./routes/owned/owned');
 app.use('/', owned);
 
 module.exports = app;
-
 
