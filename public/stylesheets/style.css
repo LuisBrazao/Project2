@@ -1,5 +1,5 @@
 body {
-  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
@@ -7,15 +7,20 @@ a {
 /*# sourceMappingURL=style.css.map */
 
 @media all and (min-width: 992px) {
-	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item .dropdown-menu{ display: none;}
 	.navbar .nav-item:hover .nav-link{ color: gold;  }
 	.navbar .nav-item:hover .dropdown-menu{ display: block; }
 	.navbar .nav-item .dropdown-menu{ margin-top:0; }
 }	
-
+.nav-money{
+  padding-right: 150px;
+  color: gold;
+  font-size: 18px
+}
 .random-page{
   background-color: #111111;
-  height: 100%
+  height: 100%;
+  padding-top: 120px
 }
 
 .painting-title{
@@ -65,19 +70,13 @@ a {
 
 #myImg:hover {opacity: 0.7;}
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-}
 /*ERROR MODAL*/
  /* The Modal (background) */
- .modal2 {
+ .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
+  padding-top: 100px;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -111,6 +110,8 @@ a {
 .modal-content, #caption {
   animation-name: zoom;
   animation-duration: 0.6s;
+  position:relative;
+  overflow:auto;
 }
 
 @keyframes zoom {
@@ -120,8 +121,8 @@ a {
 
 /* The Close Button */
 .close {
-  position: absolute;
-  top: 15px;
+  position: fixed;
+  top: 80px;
   right: 35px;
   color: #f1f1f1;
   font-size: 40px;
@@ -167,8 +168,64 @@ a {
   padding: 50px
 }
 
-/*handwriting animation*/
 
-#container-animation {
-    padding: 30px; 
+
+.my-collection{
+  background-color: rgb(19, 26, 8);
+
+}
+
+.collection-card{
+  padding: 50px;
+
+}
+
+.my-wishlist{
+  background-color: rgba(163, 68, 68, 0.671);
+}
+
+.wishlist-title{
+  display: flex;
+  justify-content: center;
+  padding: 10px
+}
+
+.wishliste-container{
+  padding: 20px;
+  height: 170px
+}
+
+.font-wish{
+  font-size: 15px;
+  padding: 4px
+}
+
+.in-store-title{
+  font-style: italic;
+  font-size: larger;
+}
+
+.store-page-title{
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 50px;
+  color: lightgreen
+}
+
+.collection-page-title{
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  padding: 10px
+}
+
+.font-owned{
+  font-size: 20px
+}
+.font-owned-price{
+  font-size: 15px
+}
+.btn-sell{
+  border-style: none;
 }

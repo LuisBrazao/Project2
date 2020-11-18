@@ -13,16 +13,18 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav">
         <li class="nav-item"></li>
-        <li class="nav-item"> <a class="nav-link" href="/"> Home </a> </li>
+        <li class="nav-item"> <a class="nav-link font-weight-bold" href="/"> Home </a> </li>
         <li class="nav-item"></li>
-        <li class="nav-item"><a class="nav-link" href="/store"> Store </a></li>
-        <li class="nav-item"><a class="nav-link" href="/showRandom"> Random painting </a></li>
+        <li class="nav-item"><a class="nav-link font-weight-bold" href="/store"> Store </a></li>
+        <li class="nav-item"><a class="nav-link font-weight-bold" href="/owned"> My Collection</a></li>
+        <li class="nav-item"><a class="nav-link font-weight-bold" href="/wishlist"> Wishlist </a></li>
+        <li class="nav-item"><a class="nav-link font-weight-bold" href="/showRandom"> Random painting </a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Auctions </a>
+          <a class="nav-link dropdown-toggle font-weight-bold" href="#" data-toggle="dropdown"> Auctions </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/Auction/auction"> All auctions</a></li>
             <li><a class="dropdown-item" href="/Auction/my-auctions"> My auctions</a></li>
@@ -31,9 +33,14 @@
       </ul>
     </div>
     {{#if user}}
+    <ul class="navbar-nav">
+      <li class="nav-item nav-money">Available money: {{user.money}}$</li>
+    </ul>
+    
     <ul class="navbar-nav mr-0 my-0">
+      
       <form action="/logout" method="POST">
-        <li class="nav-item nav-link mr-0 my-0"><button class="nav-link border-0 bg-transparent logout-btn" type="submit">Logout</button>
+        <li class="nav-item nav-link mr-0 my-0"><button class="nav-link border-0 bg-transparent logout-btn font-weight-bold" type="submit">Logout</button>
         </li>
       </form>
     </ul>
