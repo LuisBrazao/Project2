@@ -5,19 +5,21 @@ const Painting = require("../../models/Painting");
 const requireLogin = require("../../config/utils")
 
 router.get("/wishlist", requireLogin, (req, res) => {
-  let paintings = {
-    paintings: []
-  }
+  let paintings =[];
   User.findById(req.session.currentUser)
     .then((result) => {
-      result.wishlist.forEach(element => {
-        Painting.findById(element.paintingID)
+      if(!result.wishlist.length){
+        res.render("Wishlist/wishlist", { errorMessage: "You don't have any paintings", user: req.session.currentUser })
+      }
+      for(let i = 0; i < result.wishlist.length; i++){
+        Painting.findById(result.wishlist[i].paintingID)
           .then((paint) => {
-            paintings.paintings.push(paint)
+              paintings.push(paint)
+              if(i === result.wishlist.length - 1){
+                res.render("Wishlist/wishlist", { paintings: paintings, user: req.session.currentUser })
+              }
           })
-      });
-      console.log(paintings)
-      res.render("Wishlist/wishlist", {paintings: paintings.paintings, user: req.session.currentUser})
+      }
     })
 })
 

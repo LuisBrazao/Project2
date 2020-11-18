@@ -2,7 +2,9 @@
 const mongoose = require('mongoose');
 const Painting = require('../models/Painting.js');
 const DB_NAME = 'project2';
-mongoose.connect(`mongodb://localhost/${DB_NAME}`, {
+require('dotenv').config();
+
+mongoose.connect(process.env.MONGODB_URI, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true

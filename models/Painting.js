@@ -7,8 +7,7 @@ const paintingSchema = new Schema(
       unique: true
     },
     author: {
-      type: String,
-      unique: true,
+      type: String
     },
     image_url: {
       type: String,

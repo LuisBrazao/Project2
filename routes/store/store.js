@@ -19,14 +19,18 @@ router.get("/store", (req, res) => {
             .then(() => {
               Store.find()
                 .then((result) => {
-                  let storePaintings = [];
-                  result[0].selling.forEach(element => {
-                    Painting.findById(element.paintingID)
+                  let store = [];
+                  for (let i = 0; i < result[0].selling.length; i++) {
+                    Painting.findById(result[0].selling[i].paintingID)
                       .then((paint) => {
-                        storePaintings.push(paint)
+                        store.push(paint)
+                        if (i === result[0].selling.length - 1) {
+                          res.render("Store/store", { paintings: store, user: req.session.currentUser })
+                        }
+                      }).catch((err) => {
+                        console.log(err)
                       })
-                  });
-                  res.render("Store/store", { paintings: storePaintings, user: req.session.currentUser })
+                  }
                 }).catch((err) => {
                   console.log(err)
                 })
@@ -52,16 +56,18 @@ router.get("/store", (req, res) => {
                 });
                 Store.findByIdAndUpdate(result[0]._id, { selling: paintingsId, startTime: currentTime, endTime: endTime })
                   .then((result2) => {
-                    let storePaintings = [];
-                    result2.selling.forEach(element => {
-                      Painting.findById(element.paintingID)
+                    let store = [];
+                    for (let i = 0; i < result[0].selling.length; i++) {
+                      Painting.findById(result[0].selling[i].paintingID)
                         .then((paint) => {
-                          storePaintings.push(paint)
+                          store.push(paint)
+                          if (i === result[0].selling.length - 1) {
+                            res.render("Store/store", { paintings: store, user: req.session.currentUser })
+                          }
                         }).catch((err) => {
-                          console.log(err);
+                          console.log(err)
                         })
-                    });
-                    res.render("Store/store", { paintings: storePaintings, user: req.session.currentUser })
+                    }
                   }).catch((err) => {
                     console.log(err)
                   })
@@ -69,16 +75,18 @@ router.get("/store", (req, res) => {
                 console.log(err)
               })
           } else {
-            let storePaintings = [];
-            result[0].selling.forEach(element => {
-              Painting.findById(element.paintingID)
+            let store = [];
+            for (let i = 0; i < result[0].selling.length; i++) {
+              Painting.findById(result[0].selling[i].paintingID)
                 .then((paint) => {
-                  storePaintings.push(paint)
+                  store.push(paint)
+                  if (i === result[0].selling.length - 1) {
+                    res.render("Store/store", { paintings: store, user: req.session.currentUser })
+                  }
                 }).catch((err) => {
                   console.log(err)
                 })
-            });
-            res.render("Store/store", { paintings: storePaintings, user: req.session.currentUser })
+            }
           }
         }).catch((err) => {
           console.log(err);

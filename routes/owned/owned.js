@@ -6,18 +6,21 @@ const requireLogin = require("../../config/utils");
 const Store = require('../../models/Store');
 
 router.get("/owned", requireLogin, (req, res) => {
-  let paintings = {
-    paintings: []
-  }
+  let paintings =[];
   User.findById(req.session.currentUser)
     .then((result) => {
-      result.owned.forEach(element => {
-        Painting.findById(element.paintingID)
+      if(!result.owned.length){
+        res.render("Owned/owned", { errorMessage: "You don't have any paintings", user: req.session.currentUser })
+      }
+      for(let i = 0; i < result.owned.length; i++){
+        Painting.findById(result.owned[i].paintingID)
           .then((paint) => {
-            paintings.paintings.push(paint)
+              paintings.push(paint)
+              if(i === result.owned.length - 1){
+                res.render("Owned/owned", { paintings: paintings, user: req.session.currentUser })
+              }
           })
-      });
-      res.render("Owned/owned", { paintings: paintings.paintings, user: req.session.currentUser })
+      }
     })
 })
 
@@ -45,9 +48,10 @@ router.post('/buy/:id', (req, res, next) => {
                 }
                 User.findByIdAndUpdate(req.session.currentUser,
                   { $push: { owned: { paintingID } }, money: newMoney }
-                ).then(() => {
+                ).then((user) => {
                   Painting.findByIdAndUpdate(paintingID, { canSell: canSell, sold: sold })
                     .then(() => {
+                      req.session.currentUser = user;
                       res.redirect(`/store`)
                     }).catch((err) => {
                       console.log(err);
