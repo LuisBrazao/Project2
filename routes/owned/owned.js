@@ -6,25 +6,25 @@ const requireLogin = require("../../config/utils");
 const Store = require('../../models/Store');
 
 router.get("/owned", requireLogin, (req, res) => {
-  let paintings =[];
+  let paintings = [];
   User.findById(req.session.currentUser)
     .then((result) => {
-      if(!result.owned.length){
-        res.render("Owned/owned", { errorMessage: "You don't have any paintings", user: req.session.currentUser })
+      if (!result.owned.length) {
+        res.render('unavailable', { user: req.session.currentUser, errorMessage: "You don't have any paintings yet, go to the store to buy one!" })
       }
-      for(let i = 0; i < result.owned.length; i++){
+      for (let i = 0; i < result.owned.length; i++) {
         Painting.findById(result.owned[i].paintingID)
           .then((paint) => {
-              paintings.push(paint)
-              if(i === result.owned.length - 1){
-                res.render("Owned/owned", { paintings: paintings, user: req.session.currentUser })
-              }
+            paintings.push(paint)
+            if (i === result.owned.length - 1) {
+              res.render("Owned/owned", { paintings: paintings, user: req.session.currentUser })
+            }
           })
        }
     })
 });
 
-router.post('/buy/:id', (req, res, next) => {
+router.post('/buy/:id', requireLogin, (req, res, next) => {
   let paintingID = req.params.id;
   if (req.session.currentUser) {
     User.findById(req.session.currentUser)
@@ -106,17 +106,13 @@ router.post('/buy/:id', (req, res, next) => {
                       console.log(err)
                     })
                 });
-                res.render("Store/store", { paintings: storePaintings, errorMessage: "You already own this painting" , user: req.session.currentUser})
+                res.render("Store/store", { paintings: storePaintings, errorMessage: "You already own this painting", user: req.session.currentUser })
               }
             }).catch((err) => {
               console.log(err);
             })
         }
       });
-  } else {
-    res.render('Store/store', {
-      errorMessage: "Please login to add paintings to your account"
-    });
   }
 });
 

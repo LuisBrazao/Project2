@@ -5,19 +5,19 @@ const Painting = require("../../models/Painting");
 const requireLogin = require("../../config/utils")
 
 router.get("/wishlist", requireLogin, (req, res) => {
-  let paintings =[];
+  let paintings = [];
   User.findById(req.session.currentUser)
     .then((result) => {
-      if(!result.wishlist.length){
-        res.render("Wishlist/wishlist", { errorMessage: "You don't have any paintings", user: req.session.currentUser })
+      if (!result.wishlist.length) {
+        res.render('unavailable', { user: req.session.currentUser, errorMessage: "You don't have any wishlisted paintings, go random paintings to start adding" })
       }
-      for(let i = 0; i < result.wishlist.length; i++){
+      for (let i = 0; i < result.wishlist.length; i++) {
         Painting.findById(result.wishlist[i].paintingID)
           .then((paint) => {
-              paintings.push(paint)
-              if(i === result.wishlist.length - 1){
-                res.render("Wishlist/wishlist", { paintings: paintings, user: req.session.currentUser })
-              }
+            paintings.push(paint)
+            if (i === result.wishlist.length - 1 && paintings.length === result.wishlist.length) {
+              res.render("Wishlist/wishlist", { paintings: paintings, user: req.session.currentUser })
+            }
           })
       }
     })
@@ -45,19 +45,22 @@ router.post('/addWishlist/:id', (req, res, next) => {
         } else {
           Painting.findById(paintingID)
             .then((painting) => {
-              res.render('Painting/random', { painting: [painting],
+              res.render('Painting/random', {
+                painting: [painting],
                 errorMessage: "You already have this painting in your wishlist"
-                , user: req.session.currentUser});
+                , user: req.session.currentUser
+              });
             })
         }
       })
-  }else{
+  } else {
     Painting.findById(paintingID)
-            .then((painting) => {
-              res.render('Painting/random', { painting: [painting],
-                errorMessage: "Please login to add paintings to your account"
-              });
-            })
+      .then((painting) => {
+        res.render('Painting/random', {
+          painting: [painting],
+          errorMessage: "Please login to add paintings to your account"
+        });
+      })
   }
 });
 
