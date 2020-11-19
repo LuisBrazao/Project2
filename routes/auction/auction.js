@@ -25,10 +25,8 @@ router.get('/all-auctions', requireLogin, (req, res, next) => {
                     winning: "No bids yet",
                     auctionID: auctions[i]._id
                   }
-                  console.log(finalAuction)
                   finalAuctions.push({ ...finalAuction });
                   if (i === auctions.length - 1) {
-                    console.log(finalAuctions)
                     res.render('Auction/auctions', { user: req.session.currentUser, auctions: finalAuctions });
                   }
                 } else {
@@ -77,10 +75,8 @@ router.get('/my-auctions', requireLogin, (req, res, next) => {
                     winning: "No bids yet",
                     auctionID: auctions[i]._id
                   }
-                  console.log(finalAuction)
                   finalAuctions.push({ ...finalAuction });
                   if (i === auctions.length - 1) {
-                    console.log(finalAuctions)
                     res.render('Auction/auctions', { user: req.session.currentUser, auctions: finalAuctions });
                   }
                 } else {
@@ -98,7 +94,6 @@ router.get('/my-auctions', requireLogin, (req, res, next) => {
                           }
                           finalAuctions.push({ ...finalAuction });
                           if (i === auctions.length - 1) {
-                            console.log(finalAuctions)
                             res.render('Auction/auctions', { user: req.session.currentUser, auctions: finalAuctions });
                           }
                         })
@@ -132,7 +127,8 @@ router.get("/start-create", requireLogin, (req, res) => {
 router.post("/create-auction", requireLogin, (req, res) => {
   let { paintingID, startPrice } = req.body;
   let startTime = new Date();
-  let endTime = startTime.setMinutes(startTime.getMinutes() + 5)
+  let endTime = new Date();
+  endTime.setMinutes(endTime.getMinutes() + 5)
   Auction.create({
     selling: paintingID,
     owner: req.session.currentUser,
@@ -196,7 +192,7 @@ router.post("/bid/:id", requireLogin, (req, res) => {
   let currentTime = new Date();
   Auction.findById(auctionID)
     .then((auction) => {
-      if (auction["currentBid"] === undefined && bidAmount > auction.startPrice && auction.owner != req.session.currentUser._id && auction.endTime > currentTime && req.session.currenUser.money > bidAmount) {
+      if (auction["currentBid"] === undefined && bidAmount > auction.startPrice && auction.owner != req.session.currentUser._id && auction.endTime > currentTime && req.session.currentUser.money > bidAmount) {
         Bid.create({ bidOwner: req.session.currentUser, bid: bidAmount })
           .then((bid) => {
             Auction.findByIdAndUpdate(auctionID, { currentBid: bid._id })
@@ -237,10 +233,10 @@ router.post("/bid/:id", requireLogin, (req, res) => {
                 })
             }
           })
-      } else if (auction.owner === req.session.currentUser._id) {
-        let errorMessage = "You can't bid on your own auction"
+      } else if (auction.owner == req.session.currentUser._id) {
+        let errorMessage = "You can't bid on your own auction";
         res.redirect(`/single-auction/${auctionID}/error/${errorMessage}`);
-      } else if (req.session.currenUser.money < bidAmount) {
+      } else if (req.session.currentUser.money < bidAmount) {
         let errorMessage = "You don't have enough money to bid on this auction"
         res.redirect(`/single-auction/${auctionID}/error/${errorMessage}`);
       } else if (auction.endTime < currentTime) {
@@ -307,6 +303,37 @@ router.get("/single-auction/:id/error/:error", requireLogin, (req, res) => {
     })
 })
 
+
+router.post("/close-auction/:id", (req, res) => {
+  let auctionID = req.params.id;
+  Auction.findById(auctionID)
+    .then((auction) => {
+      if (auction["currentBid"] != undefined) {
+        Bid.findById(auction.currentBid)
+          .then((bid) => {
+            User.findById(auction.owner)
+              .then((user) => {
+                let newMoney = user.money + bid.bid;
+                User.findByIdAndUpdate(auction.owner, { money: newMoney, $pull: { owned: auction.selling.paintingID } })
+                  .then(() => {
+                    User.findByIdAndUpdate(bid.bidOwner, { $push: { owned: { paintingID } } })
+                      .then(() => {
+                        Auction.findByIdAndDelete(auctionID)
+                          .then(() => {
+                            res.redirect("/all-auctions");
+                          })
+                      })
+                  })
+              })
+          })
+      } else {
+        Auction.findByIdAndDelete(auctionID)
+          .then(() => {
+            res.redirect("/all-auctions");
+          })
+      }
+    })
+})
 
 
 

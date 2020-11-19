@@ -14,6 +14,8 @@
             <p class="card-text text-center">Current bid: {{activePrice}} by {{winning}}</p>
             {{else}}<p class="card-text text-center">Start price: {{activePrice}}</p>
             {{/if}}
+             <p class="card-text" style="display: none;"><span id="endTimeAfter">{{endTime}}</span> <span id="id">{{auctionID}}</span></p>
+        <p class="card-text" id="end">Time left: <span id="endTime">{{endTime}}</span></p>
           </div>
         </div>
       </div>
@@ -26,8 +28,9 @@
       <button type="submit" class="btn btn-danger">Make Bid</button>
     </form>
   </div>
-      {{/each}}
-    </div>
+  <form action="/close-auction/{{auctionID}}" method="POST" id="closeAuction"></form>
+  {{/each}}
+     </div>
   </div>
 </div>
 
@@ -87,6 +90,7 @@
     }
   </style>
   <script>
+
     var modal = document.getElementById("myModalDetails");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close-details")[0];
@@ -101,8 +105,37 @@
       if (event.target == modal) {
         modal.style.display = "none";
       }
-    } 
+    }
+
+
   </script>
   {{/if}}
+  <script>
+    let currentTime = new Date();
+    let endTimeString = document.getElementById("endTime").innerHTML;
+    let endTime = new Date(endTimeString)
+    let timeLeft = millisToMinutesAndSeconds(endTime - currentTime);
+    document.getElementById("endTime").innerHTML = timeLeft;
+    function millisToMinutesAndSeconds(millis) {
+      var minutes = Math.floor(millis / 60000);
+      var seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
+    function myFunction() {
+      setInterval(() => {
+        let currentTime = new Date();
+        let endTimeString = document.getElementById("endTimeAfter").innerHTML;
+        let endTime = new Date(endTimeString)
+        let timeLeft = millisToMinutesAndSeconds(endTime - currentTime);
+        document.getElementById("endTime").innerHTML = timeLeft;
+        if (endTime - currentTime <= 0) {
+          console.log(document.getElementById("closeAuction"));
+          document.getElementById("closeAuction").submit();
+        }
+      }, 1000);
+    }
+
+    myFunction();
+  </script>
   <hr />
 </div>
