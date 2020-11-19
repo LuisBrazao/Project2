@@ -15,7 +15,7 @@ router.get("/wishlist", requireLogin, (req, res) => {
         Painting.findById(result.wishlist[i].paintingID)
           .then((paint) => {
             paintings.push(paint)
-            if (i === result.wishlist.length - 1 && paintings.length === result.wishlist.length) {
+            if (i === result.wishlist.length - 1 ) {
               res.render("Wishlist/wishlist", { paintings: paintings, user: req.session.currentUser })
             }
           })
