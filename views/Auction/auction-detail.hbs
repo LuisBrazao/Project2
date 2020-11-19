@@ -10,132 +10,134 @@
           <div>
             <h5 class="text-center text-light card-title">{{auctionOwner.username}} is selling: </h5>
             <h5 class="text-center text-light paint-title-auction">{{paintingName}}</h5>
-            {{#if bid}}
+            {{#if (eq winning "No bids yet")  }}
+            <p class="card-text text-center">Start price: {{activePrice}}</p>
+            {{else}}
             <p class="card-text text-center">Current bid: {{activePrice}} by {{winning}}</p>
-            {{else}}<p class="card-text text-center">Start price: {{activePrice}}</p>
             {{/if}}
-             <p class="card-text" style="display: none;"><span id="endTimeAfter">{{endTime}}</span> <span id="id">{{auctionID}}</span></p>
-        <p class="card-text" id="end">Time left: <span id="endTime">{{endTime}}</span></p>
+            <p class="card-text" style="display: none;"><span id="endTimeAfter">{{endTime}}</span> <span
+                id="id">{{auctionID}}</span></p>
+            <p class="card-text" id="end">Time left: <span id="endTime">{{endTime}}</span></p>
           </div>
         </div>
       </div>
       <div class="col-md-6">
-    <form action="/bid/{{auctionID}}" method="POST">
-      <label>
-        Bid amount
-        <input type="number" name="bidAmount" value="{{plus activePrice 100}}" min="{{plus activePrice 100}}" required>
-      </label>
-      <button type="submit" class="btn btn-danger">Make Bid</button>
-    </form>
-  </div>
-  <form action="/close-auction/{{auctionID}}" method="POST" id="closeAuction"></form>
-  {{/each}}
-     </div>
+        <form action="/bid/{{auctionID}}" method="POST">
+          <label>
+            Bid amount
+            <input type="number" name="bidAmount" value="{{plus activePrice 100}}" min="{{plus activePrice 100}}"
+              required>
+          </label>
+          <button type="submit" class="btn btn-danger">Make Bid</button>
+        </form>
+      </div>
+      <form action="/close-auction/{{auctionID}}" method="POST" id="closeAuction"></form>
+      {{/each}}
+    </div>
   </div>
 </div>
 
-  {{#if errorMessage}}
-  <div id="myModalDetails" class="modalDetails">
-    <div class="modal-content-details">
-      <span class="close-details">&times;</span>
-      <p>{{errorMessage}}</p>
-    </div>
+{{#if errorMessage}}
+<div id="myModalDetails" class="modalDetails">
+  <div class="modal-content-details">
+    <span class="close-details">&times;</span>
+    <p>{{errorMessage}}</p>
   </div>
-  <style>
-    .modalDetails {
-      display: block;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
-      /* Black w/ opacity */
-    }
+</div>
+<style>
+  .modalDetails {
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+  }
 
-    /* Modal Content/Box */
-    .modal-content-details {
-      background-color: #fefefe;
-      margin: 15% auto;
-      /* 15% from the top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      /* Could be more or less, depending on screen size */
-    }
+  /* Modal Content/Box */
+  .modal-content-details {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+  }
 
-    /* The Close Button */
-    .close-details {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
+  /* The Close Button */
+  .close-details {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-    .close-details:hover,
-    .close-details:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  </style>
-  <script>
+  .close-details:hover,
+  .close-details:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+<script>
 
-    var modal = document.getElementById("myModalDetails");
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close-details")[0];
+  var modal = document.getElementById("myModalDetails");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close-details")[0];
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
       modal.style.display = "none";
     }
+  }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
+
+</script>
+{{/if}}
+<script>
+  let currentTime = new Date();
+  let endTimeString = document.getElementById("endTime").innerHTML;
+  let endTime = new Date(endTimeString)
+  let timeLeft = millisToMinutesAndSeconds(endTime - currentTime);
+  document.getElementById("endTime").innerHTML = timeLeft;
+  function millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
+  function myFunction() {
+    setInterval(() => {
+      let currentTime = new Date();
+      let endTimeString = document.getElementById("endTimeAfter").innerHTML;
+      let endTime = new Date(endTimeString)
+      let timeLeft = millisToMinutesAndSeconds(endTime - currentTime);
+      document.getElementById("endTime").innerHTML = timeLeft;
+      if (endTime - currentTime <= 0) {
+        console.log(document.getElementById("closeAuction"));
+        document.getElementById("closeAuction").submit();
       }
-    }
+    }, 1000);
+  }
 
-
-  </script>
-  {{/if}}
-  <script>
-    let currentTime = new Date();
-    let endTimeString = document.getElementById("endTime").innerHTML;
-    let endTime = new Date(endTimeString)
-    let timeLeft = millisToMinutesAndSeconds(endTime - currentTime);
-    document.getElementById("endTime").innerHTML = timeLeft;
-    function millisToMinutesAndSeconds(millis) {
-      var minutes = Math.floor(millis / 60000);
-      var seconds = ((millis % 60000) / 1000).toFixed(0);
-      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
-    function myFunction() {
-      setInterval(() => {
-        let currentTime = new Date();
-        let endTimeString = document.getElementById("endTimeAfter").innerHTML;
-        let endTime = new Date(endTimeString)
-        let timeLeft = millisToMinutesAndSeconds(endTime - currentTime);
-        document.getElementById("endTime").innerHTML = timeLeft;
-        if (endTime - currentTime <= 0) {
-          console.log(document.getElementById("closeAuction"));
-          document.getElementById("closeAuction").submit();
-        }
-      }, 1000);
-    }
-
-    myFunction();
-  </script>
-  <hr />
+  myFunction();
+</script>
 </div>

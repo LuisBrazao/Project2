@@ -10,6 +10,10 @@ router.get('/all-auctions', requireLogin, (req, res, next) => {
   let finalAuctions = [];
   Auction.find()
     .then((auctions) => {
+      console.log(auctions)
+      if(!auctions.length){
+        res.render('unavailable', { user: req.session.currentUser, errorMessage: "There are no auctions open!" })
+      }
       for (let i = 0; i < auctions.length; i++) {
         Painting.findById(auctions[i].selling)
           .then((paint) => {
@@ -61,6 +65,9 @@ router.get('/my-auctions', requireLogin, (req, res, next) => {
   let finalAuctions = [];
   Auction.find({ owner: req.session.currentUser })
     .then((auctions) => {
+      if(!auctions.length){
+        res.render('unavailable', { user: req.session.currentUser, errorMessage: "You have no auctions open!" })
+      }
       for (let i = 0; i < auctions.length; i++) {
         Painting.findById(auctions[i].selling)
           .then((paint) => {
@@ -128,7 +135,7 @@ router.post("/create-auction", requireLogin, (req, res) => {
   let { paintingID, startPrice } = req.body;
   let startTime = new Date();
   let endTime = new Date();
-  endTime.setMinutes(endTime.getMinutes() + 5)
+  endTime.setMinutes(endTime.getMinutes() + 1)
   Auction.create({
     selling: paintingID,
     owner: req.session.currentUser,
@@ -309,18 +316,19 @@ router.post("/close-auction/:id", (req, res) => {
   Auction.findById(auctionID)
     .then((auction) => {
       if (auction["currentBid"] != undefined) {
+        let paintingID = auction.selling;
         Bid.findById(auction.currentBid)
           .then((bid) => {
             User.findById(auction.owner)
               .then((user) => {
                 let newMoney = user.money + bid.bid;
-                User.findByIdAndUpdate(auction.owner, { money: newMoney, $pull: { owned: auction.selling.paintingID } })
+                User.findByIdAndUpdate(auction.owner, { $pull: { owned: {paintingID: paintingID} }}, {money: newMoney})
                   .then(() => {
                     User.findByIdAndUpdate(bid.bidOwner, { $push: { owned: { paintingID } } })
                       .then(() => {
                         Auction.findByIdAndDelete(auctionID)
                           .then(() => {
-                            res.redirect("/all-auctions");
+                            res.redirect("/");
                           })
                       })
                   })
