@@ -292,3 +292,15 @@ body {
 .auction-price{
   font-size: 18px
 }
+
+#map {
+  height: 400px;
+  width: auto; 
+  margin-bottom: 60px
+}
+
+.map-title{
+  margin-top: 50px;
+  font-size: 30px;
+  color: whitesmoke
+}

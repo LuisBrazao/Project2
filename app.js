@@ -63,6 +63,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Art Auctions';
 
+app.locals.gmapKey = process.env.GOOGLE_MAPS_API_KEY;
 
 
 
