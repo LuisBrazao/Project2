@@ -1,9 +1,10 @@
-<div class="my-wishlist">
+<body class="index-page">
 <h2 class="wishlist-title">Wishlist</h2>
+<div class="my-wishlist">
 <div class="wishlist-container">
   <div class="row">
       {{#each paintings}}
-      <div class="col-md-3">
+      <div class="col-md-3 d-flex justify-content-around">
         <figure class="figure">
           <div class="text-center collection-card">
             <img id="myImg {{title}}" class="myImgClass {{title}}" src="{{image_url}}"
@@ -46,3 +47,5 @@
     </script>
   </div>
 </div>
+
+</body>

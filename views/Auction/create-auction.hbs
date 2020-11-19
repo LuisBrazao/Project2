@@ -1,17 +1,37 @@
-<form action="/create-auction" method="POST" style="margin-top: 100px">
-<label>
-  Selling
-  <select name="paintingID" id="">
-    {{#each owned}}
-      <option value="{{id}}">{{name}}</option>
-    {{/each}}
-  </select>
-</label>
-<label>
-  Start Price
-  <input type="number" name="startPrice">
-  </label>
-  <button type="submit" class="btn btn-warning">
-Create account
-  </button>
-</form>
+<body class="index-page">
+  <form action="/create-auction" method="POST" style="margin-top: 100px">
+    <div class="container ">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card bg-transparent">
+          <div class="card-body login-box  justify-content-between">
+            <p>
+              <label class="create-card-text justify-content-between">
+               Select Painting:  <br>
+                <select name="paintingID" id="">
+            
+              {{#each owned}}
+              <option value="{{id}}">{{name}}</option>
+              {{/each}}
+              </select>
+              </label>
+            </p>
+
+            <p>
+              <label class="create-card-text">
+                Start Price: <br>
+                <input type="number" name="startPrice">
+              </label>
+            </p>
+            <div class="text-center">
+<button type="submit" class="btn btn-warning ">
+              Create auction
+            </button>
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>

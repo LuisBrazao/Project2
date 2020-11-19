@@ -1,17 +1,26 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-a {
-  color: #00B7FF; }
+
 
 /*# sourceMappingURL=style.css.map */
 
 @media all and (min-width: 992px) {
 	.navbar .nav-item .dropdown-menu{ display: none;}
 	.navbar .nav-item:hover .nav-link{ color: gold;  }
-	.navbar .nav-item:hover .dropdown-menu{ display: block; }
-	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+  .navbar .nav-item:hover .dropdown-menu{ display: block; background-color: lightslategrey; color: gold}
+
+  .navbar .nav-item:focus .dropdown-menu{ display: block; background-color: lightslategrey; color: gold}
+
+  .navbar .nav-item .dropdown-menu{ margin-top:0; }
+
 }	
+
+.dropdown-item:hover{
+  background-color: rgb(142, 172, 202);
+  font-weight: bold;
+}
+
 .nav-money{
   padding-right: 150px;
   color: gold;
@@ -33,10 +42,13 @@ a {
 
 .index-page{
   background-color: #111111;
+  height: 100%;
 }
 
 .welcome{
-  font: 400 130px/0.8 'Great Vibes', Helvetica, sans-serif;
+  font-size: 130px;
+  text-shadow: 0.8;
+  font-family: 'Great Vibes', Helvetica, sans-serif;
   color: #e8b923;
   text-shadow: 6px 6px 6px rgba(0,0,0,0.3); 
 }
@@ -184,9 +196,13 @@ a {
 }
 
 .wishlist-title{
+  font-style: italic;
+  font-family: 'Great Vibes', Helvetica, sans-serif;
+  font-size: 50px;
+  color:whitesmoke;
   display: flex;
   justify-content: center;
-  padding: 10px
+  padding-top: 80px
 }
 
 .wishliste-container{
@@ -220,10 +236,15 @@ a {
 }
 
 .font-owned{
-  font-size: 20px
+  font-size: 15px
 }
 .font-owned-price{
   font-size: 15px
+}
+.font-owned-title{
+  font-style: italic;
+  font-size: 25px
+
 }
 .btn-sell{
   border-style: none;
@@ -247,4 +268,27 @@ a {
 
 .painting-owner{
   margin-top: 7px
+}
+
+.timer{
+  font-size: 30px
+}
+
+.create-card-text{
+  color: lightgray;
+  font-weight: bold;
+  font-size: 30px
+}
+
+.bid-font{
+  color: whitesmoke;
+  font-size: 20px
+}
+
+.card-title{
+  margin-top: 20px
+}
+
+.auction-price{
+  font-size: 18px
 }

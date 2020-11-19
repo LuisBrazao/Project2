@@ -20,9 +20,9 @@ router.get("/owned", requireLogin, (req, res) => {
                 res.render("Owned/owned", { paintings: paintings, user: req.session.currentUser })
               }
           })
-      }
+       }
     })
-})
+});
 
 router.post('/buy/:id', (req, res, next) => {
   let paintingID = req.params.id;

@@ -71,6 +71,7 @@ router.get('/my-auctions', requireLogin, (req, res, next) => {
                     endTime: auctions[i].endTime,
                     paintingName: paint.title,
                     auctionOwner: user.username,
+                    paintingImg: paint.image_url,
                     activePrice: auctions[i].startPrice,
                     winning: "No bids yet",
                     auctionID: auctions[i]._id
@@ -88,6 +89,7 @@ router.get('/my-auctions', requireLogin, (req, res, next) => {
                             endTime: auctions[i].endTime,
                             paintingName: paint.title,
                             auctionOwner: user.username,
+                            paintingImg: paint.image_url,
                             activePrice: bid.bid,
                             winning: user2.username,
                             auctionID: auctions[i]._id
