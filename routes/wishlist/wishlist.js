@@ -23,9 +23,6 @@ router.get("/wishlist", requireLogin, (req, res) => {
     })
 })
 
-
-
-
 router.post('/addWishlist/:id', (req, res, next) => {
   let paintingID = req.params.id;
   if (req.session.currentUser) {
