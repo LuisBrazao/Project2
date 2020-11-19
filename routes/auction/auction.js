@@ -328,7 +328,12 @@ router.post("/close-auction/:id", (req, res) => {
                       .then(() => {
                         Auction.findByIdAndDelete(auctionID)
                           .then(() => {
-                            res.redirect("/");
+                            User.findById(req.session.currentUser._id)
+                              .then((user2) => {
+                                req.session.currentUser = user2 
+                                res.redirect("/all-auctions");
+                              })
+                            
                           })
                       })
                   })

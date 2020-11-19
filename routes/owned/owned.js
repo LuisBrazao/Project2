@@ -24,7 +24,7 @@ router.get("/owned", requireLogin, (req, res) => {
     })
 })
 
-router.post('/buy/:id', (req, res, next) => {
+router.post('/buy/:id', requireLogin, (req, res, next) => {
   let paintingID = req.params.id;
   if (req.session.currentUser) {
     User.findById(req.session.currentUser)
@@ -113,10 +113,6 @@ router.post('/buy/:id', (req, res, next) => {
             })
         }
       });
-  } else {
-    res.render('Store/store', {
-      errorMessage: "Please login to add paintings to your account"
-    });
   }
 });
 
