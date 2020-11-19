@@ -24,7 +24,7 @@ router.get("/store", (req, res) => {
                     Painting.findById(result[0].selling[i].paintingID)
                       .then((paint) => {
                         store.push(paint)
-                        if (i === result[0].selling.length - 1) {
+                        if (i === result[0].selling.length - 1 && store.length === result[0].selling.length) {
                           res.render("Store/store", { paintings: store, user: req.session.currentUser })
                         }
                       }).catch((err) => {
@@ -61,7 +61,7 @@ router.get("/store", (req, res) => {
                       Painting.findById(result[0].selling[i].paintingID)
                         .then((paint) => {
                           store.push(paint)
-                          if (i === result[0].selling.length - 1) {
+                          if (i === result[0].selling.length - 1 && store.length === result[0].selling.length) {
                             res.render("Store/store", { paintings: store, user: req.session.currentUser })
                           }
                         }).catch((err) => {
@@ -80,7 +80,7 @@ router.get("/store", (req, res) => {
               Painting.findById(result[0].selling[i].paintingID)
                 .then((paint) => {
                   store.push(paint)
-                  if (i === result[0].selling.length - 1) {
+                  if (i === result[0].selling.length - 1 && store.length === result[0].selling.length) {
                     res.render("Store/store", { paintings: store, user: req.session.currentUser })
                   }
                 }).catch((err) => {
